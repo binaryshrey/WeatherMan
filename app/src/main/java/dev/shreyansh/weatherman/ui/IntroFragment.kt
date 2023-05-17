@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import dev.shreyansh.weatherman.R
@@ -25,6 +26,12 @@ class IntroFragment : Fragment() {
 
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_intro, container, false)
+        binding.privacyTV.setOnClickListener {
+            Toast.makeText(context,"Privacy Policy",Toast.LENGTH_SHORT).show()
+        }
+        binding.termsTV.setOnClickListener {
+            Toast.makeText(context,"Terms of Service",Toast.LENGTH_SHORT).show()
+        }
         return binding.root
     }
 

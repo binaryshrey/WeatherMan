@@ -39,34 +39,34 @@
                     android:layout_height="56dp"
                     android:layout_marginStart="48dp"
                     android:layout_marginEnd="48dp"
-                    android:layout_marginBottom="24dp"
-                    android:backgroundTint="#1A41DB"
-                    android:fontFamily="@font/lora_regular"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/open_sans_semibold"
                     android:text="Get Started"
                     android:textAllCaps="false"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     app:cornerRadius="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/termsInitTV"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <View
-                    android:layout_marginTop="200dp"
                     android:id="@+id/view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/gradient_overlay"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/videoView" />
 
                 <TextView
                     android:id="@+id/titleTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="48dp"
-                    android:layout_marginBottom="140dp"
+                    android:layout_marginBottom="200dp"
                     android:fontFamily="@font/lora_bold"
                     android:text="WeatherMan"
                     android:textColor="#FFFFFF"
@@ -81,14 +81,69 @@
                     android:layout_marginStart="48dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="48dp"
-                    android:fontFamily="@font/lora_regular"
-                    android:text="A minimalistic weather tracking app"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Stay ahead of the storm with our minimalistic weather tracker app"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/titleTV" />
 
+                <TextView
+                    android:id="@+id/termsInitTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
+                    android:text="By continuing you agree to our "
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@+id/privacyInitTV"
+                    app:layout_constraintEnd_toStartOf="@+id/termsTV"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/termsTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Terms of Service"
+                    android:textColor="#507FFA"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@+id/privacyTV"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/termsInitTV" />
+
+                <TextView
+                    android:id="@+id/privacyInitTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/open_sans"
+                    android:text="For more information, see our "
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/privacyTV"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/privacyTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Privacy Policy"
+                    android:textColor="#507FFA"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/privacyInitTV" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
