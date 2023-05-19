@@ -51,6 +51,9 @@ class IntroFragment : Fragment() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         settingsClient = LocationServices.getSettingsClient(requireActivity())
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_intro, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+
+
         binding.privacyTV.setOnClickListener {
             Toast.makeText(context,"Privacy Policy",Toast.LENGTH_SHORT).show()
         }
@@ -109,6 +112,7 @@ class IntroFragment : Fragment() {
                 if (task.isSuccessful && task.result != null) {
                     val location: Location = task.result
                     currentCity = getCurrentCity(location.latitude, location.longitude)
+                    weatherManViewModel.updateOnBoardingPrefs(true)
                     weatherManViewModel.updateCurrentLocation(currentCity)
                     findNavController().navigate(IntroFragmentDirections.actionIntroFragmentToHomeFragment(currentCity))
                     Log.i("currentCity","$currentCity")
@@ -146,6 +150,13 @@ class IntroFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        weatherManViewModel.isOnBoardComplete.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            if(it){
+                weatherManViewModel.location.observe(viewLifecycleOwner, androidx.lifecycle.Observer { loc ->
+                    findNavController().navigate(IntroFragmentDirections.actionIntroFragmentToHomeFragment(loc))
+                })
+            }
+        })
         playVideo()
     }
 

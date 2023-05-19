@@ -58,4 +58,13 @@ dependencies {
 
     //safeArgs-nav
     implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
+
+    //dataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    //androidx-lifecycle
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+
+    //jetpack-navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
 }

@@ -1,22 +1,30 @@
 package dev.shreyansh.weatherman.viewModel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
+import dev.shreyansh.weatherman.utils.WeatherManDataStore
+import kotlinx.coroutines.launch
 
 class WeatherManViewModel(application: Application) : AndroidViewModel(application) {
 
 
-    private val _currentLocation = MutableLiveData<String>()
-    val currentLocation: LiveData<String>
-        get() = _currentLocation
+    private val dataStore = WeatherManDataStore.getInstance(application)
+    var location = dataStore.getLocationPrefs().asLiveData()
+    var isOnBoardComplete = dataStore.getOnboardPrefs().asLiveData()
 
     init {
-        _currentLocation.value = "New Delhi"
+
     }
 
     fun updateCurrentLocation(location : String){
-        _currentLocation.value = location
+        viewModelScope.launch {
+            dataStore.setLocationPrefs(location)
+        }
+    }
+
+    fun updateOnBoardingPrefs(isOnBoarded : Boolean){
+        viewModelScope.launch {
+            dataStore.setOnboardPrefs(isOnBoarded)
+        }
     }
 }
