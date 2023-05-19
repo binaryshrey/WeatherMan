@@ -15,12 +15,15 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import dev.shreyansh.weatherman.R
 import dev.shreyansh.weatherman.databinding.FragmentIntroBinding
+import dev.shreyansh.weatherman.viewModel.WeatherManViewModel
+import dev.shreyansh.weatherman.viewModel.WeatherManViewModelFactory
 import java.util.*
 
 
@@ -32,6 +35,9 @@ class IntroFragment : Fragment() {
     private lateinit var binding : FragmentIntroBinding
     private lateinit var settingsClient: SettingsClient
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private val weatherManViewModel: WeatherManViewModel by activityViewModels {
+        WeatherManViewModelFactory(requireNotNull(this.activity).application)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -103,6 +109,7 @@ class IntroFragment : Fragment() {
                 if (task.isSuccessful && task.result != null) {
                     val location: Location = task.result
                     currentCity = getCurrentCity(location.latitude, location.longitude)
+                    weatherManViewModel.updateCurrentLocation(currentCity)
                     findNavController().navigate(IntroFragmentDirections.actionIntroFragmentToHomeFragment(currentCity))
                     Log.i("currentCity","$currentCity")
                 }
