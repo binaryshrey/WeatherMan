@@ -10,6 +10,8 @@ import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import dev.shreyansh.weatherman.R
 import dev.shreyansh.weatherman.databinding.FragmentHomeBinding
+import dev.shreyansh.weatherman.utils.convertTo12HourFormat
+import dev.shreyansh.weatherman.utils.formatMillisToDayDate
 
 
 class HomeFragment : Fragment() {
@@ -25,6 +27,8 @@ class HomeFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home, container, false)
         binding.locationTV.text = "${currentLocation.city}, ${currentLocation.countryCode}"
+        binding.dateTV.text = formatMillisToDayDate(System.currentTimeMillis()).toString()
+        binding.timeTV.text = convertTo12HourFormat(System.currentTimeMillis()).toString()
         return binding.root
     }
 
