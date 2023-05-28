@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -49,4 +52,19 @@ dependencies {
 
     //splash-screen API
     implementation 'androidx.core:core-splashscreen:1.0.1'
+
+    // google-play-services
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
+    //safeArgs-nav
+    implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
+
+    //dataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    //androidx-lifecycle
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+
+    //jetpack-navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
 }
