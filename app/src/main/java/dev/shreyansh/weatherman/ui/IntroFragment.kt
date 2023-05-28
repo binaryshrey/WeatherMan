@@ -22,6 +22,7 @@ import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import dev.shreyansh.weatherman.R
 import dev.shreyansh.weatherman.databinding.FragmentIntroBinding
+import dev.shreyansh.weatherman.utils.CurrentLocation
 import dev.shreyansh.weatherman.viewModel.WeatherManViewModel
 import dev.shreyansh.weatherman.viewModel.WeatherManViewModelFactory
 import java.util.*
@@ -29,7 +30,6 @@ import java.util.*
 
 class IntroFragment : Fragment() {
 
-    private var currentCity = "New Delhi"
     private val REQUEST_LOCATION_PERMISSION = 123
 
     private lateinit var binding : FragmentIntroBinding
@@ -109,11 +109,9 @@ class IntroFragment : Fragment() {
             fusedLocationClient.lastLocation.addOnCompleteListener { task ->
                 if (task.isSuccessful && task.result != null) {
                     val location: Location = task.result
-                    currentCity = getCurrentCity(location.latitude, location.longitude)
+                    val currentLocation = getCurrentCity(location.latitude, location.longitude)
                     weatherManViewModel.updateOnBoardingPrefs(true)
-                    weatherManViewModel.updateCurrentLocation(currentCity)
-                    findNavController().navigate(IntroFragmentDirections.actionIntroFragmentToHomeFragment(currentCity))
-                    Log.i("currentCity","$currentCity")
+                    weatherManViewModel.updateCurrentLocation(currentLocation)
                 }
             }
                 .addOnFailureListener { task ->
@@ -125,18 +123,18 @@ class IntroFragment : Fragment() {
 
 
 
-    private fun getCurrentCity(latitude: Double, longitude: Double): String {
+    private fun getCurrentCity(latitude: Double, longitude: Double): CurrentLocation {
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
         val addresses: MutableList<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
 
         if (addresses != null) {
             if (addresses.isNotEmpty()) {
                 val address: Address = addresses[0]
-                return address.locality ?: "New Delhi"
+                return CurrentLocation(address.locality,address.countryCode)
             }
         }
 
-        return "New Delhi"
+        return CurrentLocation()
     }
 
 
@@ -150,7 +148,7 @@ class IntroFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         weatherManViewModel.isOnBoardComplete.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             if(it){
-                weatherManViewModel.location.observe(viewLifecycleOwner, androidx.lifecycle.Observer { loc ->
+                weatherManViewModel.currentLocation.observe(viewLifecycleOwner, androidx.lifecycle.Observer { loc ->
                     findNavController().navigate(IntroFragmentDirections.actionIntroFragmentToHomeFragment(loc))
                 })
             }

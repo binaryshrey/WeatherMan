@@ -21,10 +21,10 @@ class HomeFragment : Fragment() {
 
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
-        val cityLocation = HomeFragmentArgs.fromBundle(requireArguments()).location
+        val currentLocation = HomeFragmentArgs.fromBundle(requireArguments()).currentLocation
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home, container, false)
-        binding.locationTV.text = cityLocation.toString()
+        binding.locationTV.text = "${currentLocation.city}, ${currentLocation.countryCode}"
         return binding.root
     }
 

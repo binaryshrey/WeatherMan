@@ -12,7 +12,9 @@ import java.io.IOException
 
 object PREFS {
     val ONBOARD_KEY = booleanPreferencesKey("ONBOARD_KEY")
-    val LOCATION_KEY = stringPreferencesKey("LOCATION_KEY")
+    val CITY_KEY = stringPreferencesKey("CITY_KEY")
+    val COUNTRY_CODE_KEY = stringPreferencesKey("COUNTRY_CODE_KEY")
+
 
 }
 
@@ -61,14 +63,14 @@ class WeatherManDataStore private constructor(context: Context) {
         }
 
 
-    //location prefs
-    suspend fun setLocationPrefs(location: String) {
+    //city prefs
+    suspend fun setCityPrefs(location: String) {
         dataStore.edit { pref ->
-            pref[PREFS.LOCATION_KEY] = location
+            pref[PREFS.CITY_KEY] = location
         }
     }
 
-    fun getLocationPrefs(): Flow<String> = dataStore.data
+    fun getCityPrefs(): Flow<String> = dataStore.data
         .catch { exception ->
             if (exception is IOException) {
                 emit(emptyPreferences())
@@ -77,8 +79,28 @@ class WeatherManDataStore private constructor(context: Context) {
             }
         }
         .map { pref ->
-            val location = pref[PREFS.LOCATION_KEY] ?: "New Delhi"
+            val location = pref[PREFS.CITY_KEY] ?: "New Delhi"
             location
+        }
+
+    //countryCode prefs
+    suspend fun setCountryCode(code: String) {
+        dataStore.edit { pref ->
+            pref[PREFS.COUNTRY_CODE_KEY] = code
+        }
+    }
+
+    fun getCountryCode(): Flow<String> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }
+        .map { pref ->
+            val code = pref[PREFS.COUNTRY_CODE_KEY] ?: "IN"
+            code
         }
 
 
