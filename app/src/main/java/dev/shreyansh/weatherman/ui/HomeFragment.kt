@@ -8,15 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import dev.shreyansh.weatherman.R
 import dev.shreyansh.weatherman.databinding.FragmentHomeBinding
 import dev.shreyansh.weatherman.utils.convertTo12HourFormat
 import dev.shreyansh.weatherman.utils.formatMillisToDayDate
+import dev.shreyansh.weatherman.viewModel.WeatherManViewModel
+import dev.shreyansh.weatherman.viewModel.WeatherManViewModelFactory
 
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding : FragmentHomeBinding
+    private val weatherManViewModel: WeatherManViewModel by activityViewModels {
+        WeatherManViewModelFactory(requireNotNull(this.activity).application)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -29,6 +36,18 @@ class HomeFragment : Fragment() {
         binding.locationTV.text = "${currentLocation.city}, ${currentLocation.countryCode}"
         binding.dateTV.text = formatMillisToDayDate(System.currentTimeMillis()).toString()
         binding.timeTV.text = convertTo12HourFormat(System.currentTimeMillis()).toString()
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = weatherManViewModel
+
+        weatherManViewModel.currentWeatherCondition.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                binding.tempTV.text = "${it.temperature.metric.value.toString()}° C"
+                binding.weatherTypeTV.text = it.weatherText.toString()
+            }
+        })
+
+
+
         return binding.root
     }
 
