@@ -15,3 +15,22 @@ fun convertTo12HourFormat(millis: Long): String {
     calendar.timeInMillis = millis
     return sdf.format(calendar.time)
 }
+
+fun convertHourlyTimestamp(timestamp: String): String {
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+    val date = inputFormat.parse(timestamp)
+
+    val calendar = Calendar.getInstance()
+    calendar.time = date
+
+    val hour = calendar.get(Calendar.HOUR_OF_DAY)
+    val minute = calendar.get(Calendar.MINUTE)
+
+    val isAM = hour < 12
+    val formattedHour = if (hour > 12) hour - 12 else hour
+    val formattedMinute = String.format("%02d", minute)
+
+    val period = if (isAM) "AM" else "PM"
+
+    return "$formattedHour:$formattedMinute $period"
+}

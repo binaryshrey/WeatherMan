@@ -30,7 +30,7 @@ data class HourlyForecastResponse(
 @Parcelize
 data class HourlyTemperature(
     @Json(name = "Value")
-    val value: String,
+    val value: Int,
 
     @Json(name = "Unit")
     val unit: String

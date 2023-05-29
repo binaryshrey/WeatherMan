@@ -112,6 +112,7 @@ class IntroFragment : Fragment() {
                     val currentLocation = getCurrentCity(location.latitude, location.longitude)
                     weatherManViewModel.updateOnBoardingPrefs(true)
                     weatherManViewModel.updateCurrentLocation(currentLocation)
+                    //findNavController().navigate(IntroFragmentDirections.actionIntroFragmentToHomeFragment(currentLocation))
                 }
             }
                 .addOnFailureListener { task ->

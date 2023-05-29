@@ -3,6 +3,7 @@ package dev.shreyansh.weatherman.utils
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import dev.shreyansh.weatherman.R
@@ -83,5 +84,19 @@ fun setCurrentWeatherIcon(imageView: ImageView, iconNo: Int?) {
             44 -> imageView.setImageResource(R.drawable.cloudy_night)
 
         }
+    }
+}
+
+@BindingAdapter("hourlyTemp")
+fun setHourlyTemp(textView: TextView, temp: Int?) {
+    temp?.let {
+        textView.text = "${((temp-32)*5/9)}°C"
+    }
+}
+
+@BindingAdapter("hourlyTempTime")
+fun setHourlyTempTime(textView: TextView, temp: String?) {
+    temp?.let {
+        textView.text = "${convertHourlyTimestamp(temp)}"
     }
 }

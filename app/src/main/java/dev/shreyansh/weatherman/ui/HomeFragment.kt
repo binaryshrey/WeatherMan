@@ -10,8 +10,10 @@ import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import dev.shreyansh.weatherman.R
 import dev.shreyansh.weatherman.databinding.FragmentHomeBinding
+import dev.shreyansh.weatherman.utils.HourlyForecastRecyclerAdapter
 import dev.shreyansh.weatherman.utils.convertTo12HourFormat
 import dev.shreyansh.weatherman.utils.formatMillisToDayDate
 import dev.shreyansh.weatherman.viewModel.WeatherManViewModel
@@ -44,6 +46,14 @@ class HomeFragment : Fragment() {
                 binding.tempTV.text = "${it.temperature.metric.value.toString()}° C"
                 binding.weatherTypeTV.text = it.weatherText.toString()
             }
+        })
+
+        val hourlyForecastRecyclerAdapter: HourlyForecastRecyclerAdapter = HourlyForecastRecyclerAdapter(HourlyForecastRecyclerAdapter.OnClickListener {
+        },requireActivity())
+
+        binding.hourlyForecastRV.adapter = hourlyForecastRecyclerAdapter
+        weatherManViewModel.hourlyForecast.observe(viewLifecycleOwner, Observer {
+            it?.let { hourlyForecastRecyclerAdapter.submitList(it.toMutableList()) }
         })
 
 

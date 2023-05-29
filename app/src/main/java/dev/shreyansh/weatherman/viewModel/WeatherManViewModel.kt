@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import dev.shreyansh.weatherman.domain.CurrentWeather
 import dev.shreyansh.weatherman.network.WeatherManAPI
 import dev.shreyansh.weatherman.network.response.CurrentWeatherCondition
+import dev.shreyansh.weatherman.network.response.HourlyForecastResponse
 import dev.shreyansh.weatherman.utils.CurrentLocation
 import dev.shreyansh.weatherman.utils.WeatherManDataStore
 import kotlinx.coroutines.launch
@@ -29,6 +30,12 @@ class WeatherManViewModel(application: Application) : AndroidViewModel(applicati
     private val _currentWeatherCondition = MutableLiveData<CurrentWeatherCondition>()
     val currentWeatherCondition : MutableLiveData<CurrentWeatherCondition>
         get() = _currentWeatherCondition
+
+
+    private val _hourlyForecast = MutableLiveData<List<HourlyForecastResponse>>()
+    val hourlyForecast : MutableLiveData<List<HourlyForecastResponse>>
+        get() = _hourlyForecast
+
 
     private val _currentConditionStatus = MutableLiveData<WeatherManCurrentConditionStatus>()
     val currentConditionStatus : MutableLiveData<WeatherManCurrentConditionStatus>
@@ -66,12 +73,12 @@ class WeatherManViewModel(application: Application) : AndroidViewModel(applicati
             _currentConditionStatus.value = WeatherManCurrentConditionStatus.LOADING
             try {
                 val cityCode = WeatherManAPI.weatherManService.getLocationKey(city)
-                Log.i("cityCode","${cityCode}")
 
                 if(!cityCode.isNullOrEmpty()){
                     val weatherCondition = WeatherManAPI.weatherManService.getCurrentWeatherByCityCode(cityCode[0].locationKey)
                     _currentWeatherCondition.value = weatherCondition[0]
-                    Log.i("weatherCondition","${weatherCondition}")
+                    val hourlyForecast = WeatherManAPI.weatherManService.getHourlyForecastByCityCode(cityCode[0].locationKey)
+                    _hourlyForecast.value = hourlyForecast
                 }
                 _currentConditionStatus.value = WeatherManCurrentConditionStatus.DONE
             }
