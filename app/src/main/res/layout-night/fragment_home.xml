@@ -17,7 +17,6 @@
         android:id="@+id/homeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
         tools:context=".ui.HomeFragment">
 
 
@@ -66,6 +65,7 @@
                 app:srcCompat="@drawable/search" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/overviewCV"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginStart="8dp"
@@ -114,8 +114,8 @@
                         android:fontFamily="@font/open_sans"
                         android:textColor="@color/white"
                         android:textSize="20sp"
-                        app:layout_constraintStart_toEndOf="@+id/imageView7"
-                        app:layout_constraintTop_toTopOf="@+id/imageView7"
+                        app:layout_constraintStart_toEndOf="@+id/weatherIconIV"
+                        app:layout_constraintTop_toTopOf="@+id/weatherIconIV"
                         tools:text="18°C" />
 
                     <TextView
@@ -126,12 +126,12 @@
                         android:fontFamily="@font/open_sans"
                         android:textColor="@color/white"
                         android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-                        app:layout_constraintStart_toEndOf="@+id/imageView7"
+                        app:layout_constraintBottom_toBottomOf="@+id/weatherIconIV"
+                        app:layout_constraintStart_toEndOf="@+id/weatherIconIV"
                         tools:text="Mostly Sunny" />
 
                     <ImageView
-                        android:id="@+id/imageView7"
+                        android:id="@+id/weatherIconIV"
                         android:layout_width="80dp"
                         android:layout_height="65dp"
                         android:layout_marginStart="16dp"
@@ -157,6 +157,20 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/hourlyTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="Hourly Forecasts"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/overviewCV" />
+
 
             <TextView
                 android:id="@+id/locationTV"
