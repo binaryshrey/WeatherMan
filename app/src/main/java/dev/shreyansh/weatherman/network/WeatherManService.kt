@@ -5,6 +5,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dev.shreyansh.weatherman.BuildConfig
 import dev.shreyansh.weatherman.network.response.CurrentWeatherCondition
+import dev.shreyansh.weatherman.network.response.HourlyForecastResponse
 import dev.shreyansh.weatherman.network.response.LocationKeyResponse
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -36,6 +37,13 @@ interface WeatherManService {
         @Path("cityId") cityId: String,
         @Query("apikey") apikey: String = API_KEY
     ) : List<CurrentWeatherCondition>
+
+
+    @GET("/forecasts/v1/hourly/12hour/{cityId}")
+    suspend fun getHourlyForecastByCityCode(
+        @Path("cityId") cityId: String,
+        @Query("apikey") apikey: String = API_KEY
+    ) : List<HourlyForecastResponse>
 }
 
 object WeatherManAPI {
