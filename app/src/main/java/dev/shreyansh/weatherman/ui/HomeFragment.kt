@@ -11,6 +11,7 @@ import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import dev.shreyansh.weatherman.R
 import dev.shreyansh.weatherman.databinding.FragmentHomeBinding
 import dev.shreyansh.weatherman.network.response.HourlyForecastResponse
@@ -61,6 +62,9 @@ class HomeFragment : Fragment() {
             it?.let { dailyForecastRecyclerAdapter.submitList(it.dailyForecasts.toMutableList()) }
         })
 
+        binding.overviewCV.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(currentLocation))
+        }
 
 
         return binding.root
