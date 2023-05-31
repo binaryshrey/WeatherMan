@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import dev.shreyansh.weatherman.R
 import dev.shreyansh.weatherman.databinding.FragmentHomeBinding
 import dev.shreyansh.weatherman.network.response.HourlyForecastResponse
+import dev.shreyansh.weatherman.utils.DailyForecastRecyclerAdapter
 import dev.shreyansh.weatherman.utils.HourlyForecastRecyclerAdapter
 import dev.shreyansh.weatherman.utils.convertTo12HourFormat
 import dev.shreyansh.weatherman.utils.formatMillisToDayDate
@@ -46,9 +47,18 @@ class HomeFragment : Fragment() {
         val hourlyForecastRecyclerAdapter: HourlyForecastRecyclerAdapter = HourlyForecastRecyclerAdapter(HourlyForecastRecyclerAdapter.OnClickListener {navigateToHourlyWeb(it)
         },requireActivity())
 
+        val dailyForecastRecyclerAdapter: DailyForecastRecyclerAdapter = DailyForecastRecyclerAdapter()
+
+
         binding.hourlyForecastRV.adapter = hourlyForecastRecyclerAdapter
+        binding.dailyForecastRV.adapter = dailyForecastRecyclerAdapter
+
         weatherManViewModel.hourlyForecast.observe(viewLifecycleOwner, Observer {
             it?.let { hourlyForecastRecyclerAdapter.submitList(it.toMutableList()) }
+        })
+
+        weatherManViewModel.dailyForecast.observe(viewLifecycleOwner, Observer {
+            it?.let { dailyForecastRecyclerAdapter.submitList(it.dailyForecasts.toMutableList()) }
         })
 
 

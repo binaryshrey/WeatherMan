@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginBottom="8dp"
-        app:cardBackgroundColor="#D2DFFF"
+        app:cardBackgroundColor="#AEC6FF"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp">
 
@@ -41,7 +41,7 @@
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/open_sans_semibold"
                 android:text="Hazy Sunshine"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/daily_forecast_IV"
                 app:layout_constraintTop_toTopOf="@+id/daily_forecast_IV" />
@@ -54,7 +54,7 @@
                 android:layout_marginBottom="4dp"
                 android:fontFamily="@font/open_sans"
                 android:text="Sunday"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/daily_forecast_IV"
                 app:layout_constraintStart_toEndOf="@+id/daily_forecast_IV" />
 
@@ -65,7 +65,7 @@
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/open_sans_semibold"
                 android:text="20/30"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
