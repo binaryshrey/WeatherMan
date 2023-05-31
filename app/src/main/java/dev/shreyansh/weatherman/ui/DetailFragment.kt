@@ -1,5 +1,7 @@
 package dev.shreyansh.weatherman.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import dev.shreyansh.weatherman.R
 import dev.shreyansh.weatherman.databinding.FragmentDetailBinding
+import dev.shreyansh.weatherman.utils.HourlyForecastRecyclerAdapter
 import dev.shreyansh.weatherman.utils.convertTo12HourFormat
 import dev.shreyansh.weatherman.utils.formatMillisToDayDate
 import dev.shreyansh.weatherman.viewModel.WeatherManViewModel
@@ -35,7 +39,22 @@ class DetailFragment : Fragment() {
 
         binding.viewModel = weatherManViewModel
 
+        val hourlyForecastRecyclerAdapter: HourlyForecastRecyclerAdapter = HourlyForecastRecyclerAdapter(
+            HourlyForecastRecyclerAdapter.OnClickListener {navigateToHourlyWeb(it.weatherURI)
+        },requireActivity())
+
+
+        binding.hourlyForecastRV.adapter = hourlyForecastRecyclerAdapter
+        weatherManViewModel.hourlyForecast.observe(viewLifecycleOwner, Observer {
+            it?.let { hourlyForecastRecyclerAdapter.submitList(it.toMutableList()) }
+        })
         return binding.root
+    }
+
+    private fun navigateToHourlyWeb(weatherURI: String) {
+        val navigateIntent = Intent(Intent.ACTION_VIEW)
+        navigateIntent.data = Uri.parse(weatherURI)
+        startActivity(navigateIntent)
     }
 
 
