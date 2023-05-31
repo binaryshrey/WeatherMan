@@ -14,7 +14,7 @@ import retrofit2.http.*
 
 
 private const val BASE_URL = "https://dataservice.accuweather.com"
-private const val API_KEY = BuildConfig.API_KEY
+private const val API_KEY = BuildConfig.ACCU_WEATHER_API_KEY
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())

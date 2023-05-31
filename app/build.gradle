@@ -23,7 +23,9 @@ android {
         versionName "1.0"
         vectorDrawables.useSupportLibrary true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_KEY", apikeyProperties['API_KEY'])
+        buildConfigField("String", "ACCU_WEATHER_API_KEY", apikeyProperties['ACCU_WEATHER_API_KEY'])
+        buildConfigField("String", "WEATHER_API_API_KEY", apikeyProperties['WEATHER_API_API_KEY'])
+
     }
 
     buildFeatures{
