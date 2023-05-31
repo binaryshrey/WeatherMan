@@ -44,10 +44,10 @@ class HomeFragment : Fragment() {
         binding.viewModel = weatherManViewModel
 
 
-        val hourlyForecastRecyclerAdapter: HourlyForecastRecyclerAdapter = HourlyForecastRecyclerAdapter(HourlyForecastRecyclerAdapter.OnClickListener {navigateToHourlyWeb(it)
+        val hourlyForecastRecyclerAdapter: HourlyForecastRecyclerAdapter = HourlyForecastRecyclerAdapter(HourlyForecastRecyclerAdapter.OnClickListener {navigateToHourlyWeb(it.weatherURI)
         },requireActivity())
 
-        val dailyForecastRecyclerAdapter: DailyForecastRecyclerAdapter = DailyForecastRecyclerAdapter()
+        val dailyForecastRecyclerAdapter: DailyForecastRecyclerAdapter = DailyForecastRecyclerAdapter(DailyForecastRecyclerAdapter.OnClickListener{navigateToHourlyWeb(it.link)})
 
 
         binding.hourlyForecastRV.adapter = hourlyForecastRecyclerAdapter
@@ -66,9 +66,9 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    private fun navigateToHourlyWeb(it: HourlyForecastResponse) {
+    private fun navigateToHourlyWeb(weatherURI: String) {
         val navigateIntent = Intent(Intent.ACTION_VIEW)
-        navigateIntent.data = Uri.parse(it.weatherURI)
+        navigateIntent.data = Uri.parse(weatherURI)
         startActivity(navigateIntent)
     }
 

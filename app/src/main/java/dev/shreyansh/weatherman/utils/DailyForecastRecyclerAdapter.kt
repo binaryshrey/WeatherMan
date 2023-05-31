@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import dev.shreyansh.weatherman.databinding.DailyForecastListItemBinding
 import dev.shreyansh.weatherman.network.response.ForecastResponse
+import dev.shreyansh.weatherman.network.response.HourlyForecastResponse
 
 
-class DailyForecastRecyclerAdapter : ListAdapter<ForecastResponse, DailyForecastRecyclerAdapter.ViewHolder>(DiffUtilItemCallBackDailyForecast()) {
+class DailyForecastRecyclerAdapter( val onClickListener: OnClickListener) : ListAdapter<ForecastResponse, DailyForecastRecyclerAdapter.ViewHolder>(DiffUtilItemCallBackDailyForecast()) {
 
 
     class ViewHolder private constructor(val binding : DailyForecastListItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -34,9 +35,15 @@ class DailyForecastRecyclerAdapter : ListAdapter<ForecastResponse, DailyForecast
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(item)
+        }
         holder.bind(item)
     }
 
+    class OnClickListener(val clickListener: (daily: ForecastResponse) -> Unit) {
+        fun onClick(daily: ForecastResponse) = clickListener(daily)
+    }
 
 }
 
