@@ -29,6 +29,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="16dp"
+                app:dailyWeatherIcon="@{daily.day.icon}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -40,11 +41,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/open_sans_semibold"
-                android:text="Hazy Sunshine"
                 android:textColor="@color/black"
                 android:textSize="18sp"
+                app:dailyWeatherForeCast="@{daily.day.weatherType}"
                 app:layout_constraintStart_toEndOf="@+id/daily_forecast_IV"
-                app:layout_constraintTop_toTopOf="@+id/daily_forecast_IV" />
+                app:layout_constraintTop_toTopOf="@+id/daily_forecast_IV"
+                tools:text="Hazy Sunshine" />
 
             <TextView
                 android:id="@+id/daily_forecast_day_TV"
@@ -53,10 +55,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="4dp"
                 android:fontFamily="@font/open_sans"
-                android:text="Sunday"
                 android:textColor="@color/black"
+                app:day="@{daily.date}"
                 app:layout_constraintBottom_toBottomOf="@+id/daily_forecast_IV"
-                app:layout_constraintStart_toEndOf="@+id/daily_forecast_IV" />
+                app:layout_constraintStart_toEndOf="@+id/daily_forecast_IV"
+                tools:text="Sunday" />
 
             <TextView
                 android:id="@+id/daily_forecast_temp_TV"
@@ -64,12 +67,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/open_sans_semibold"
-                android:text="20/30"
                 android:textColor="@color/black"
                 android:textSize="16sp"
+                app:dailyWeatherMax="@{daily.temperature.maximum.value}"
+                app:dailyWeatherMin="@{daily.temperature.minimum.value}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="20/30" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

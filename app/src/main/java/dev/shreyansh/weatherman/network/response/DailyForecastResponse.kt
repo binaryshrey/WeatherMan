@@ -68,7 +68,7 @@ data class Maximum(
 @Parcelize
 data class Day(
     @Json(name = "Icon")
-    val icon: String,
+    val icon: Int,
 
     @Json(name = "IconPhrase")
     val weatherType: String

@@ -1,6 +1,8 @@
 package dev.shreyansh.weatherman.utils
 
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 fun formatMillisToDayDate(millis: Long): String {
@@ -33,4 +35,22 @@ fun convertHourlyTimestamp(timestamp: String): String {
     val period = if (isAM) "AM" else "PM"
 
     return "$formattedHour:$formattedMinute $period"
+}
+
+fun getDayOfWeek(dateString: String): String {
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.US)
+    val date = inputFormat.parse(dateString)
+    val calendar = Calendar.getInstance()
+    calendar.time = date
+    val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+    return when (dayOfWeek) {
+        Calendar.SUNDAY -> "Sunday"
+        Calendar.MONDAY -> "Monday"
+        Calendar.TUESDAY -> "Tuesday"
+        Calendar.WEDNESDAY -> "Wednesday"
+        Calendar.THURSDAY -> "Thursday"
+        Calendar.FRIDAY -> "Friday"
+        Calendar.SATURDAY -> "Saturday"
+        else -> ""
+    }
 }
