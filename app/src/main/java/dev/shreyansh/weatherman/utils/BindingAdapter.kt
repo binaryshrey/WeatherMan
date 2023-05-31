@@ -100,3 +100,30 @@ fun setHourlyTempTime(textView: TextView, temp: String?) {
         textView.text = "${convertHourlyTimestamp(temp)}"
     }
 }
+
+
+@BindingAdapter("currentTemp")
+fun setCurrentTemp(textView: TextView, temp: String?) {
+    temp?.let {
+        textView.text = temp.toString()
+    }
+}
+
+@BindingAdapter("currentTempType")
+fun setCurrentTempType(textView: TextView, tempType: String?) {
+    tempType?.let {
+        textView.text = tempType.toString()
+    }
+}
+
+@BindingAdapter("alert")
+fun setAlert(textView: TextView, temp: String?) {
+    temp?.let {
+        if(temp.toFloat() > 25f){
+            textView.text = "Extreme heat warning: Temperatures soaring, stay hydrated and seek shade for your safety."
+        }
+        else{
+            textView.text = "Expect cooler conditions with dropping temperatures and a chance of light showers."
+        }
+    }
+}

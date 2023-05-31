@@ -2,7 +2,6 @@ package dev.shreyansh.weatherman.ui
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import dev.shreyansh.weatherman.R
 import dev.shreyansh.weatherman.databinding.FragmentHomeBinding
 import dev.shreyansh.weatherman.network.response.HourlyForecastResponse
@@ -44,12 +42,6 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = weatherManViewModel
 
-        weatherManViewModel.currentWeatherCondition.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                binding.tempTV.text = "${it.temperature.metric.value.toString()}° C"
-                binding.weatherTypeTV.text = it.weatherText.toString()
-            }
-        })
 
         val hourlyForecastRecyclerAdapter: HourlyForecastRecyclerAdapter = HourlyForecastRecyclerAdapter(HourlyForecastRecyclerAdapter.OnClickListener {navigateToHourlyWeb(it)
         },requireActivity())
