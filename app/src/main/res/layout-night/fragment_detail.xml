@@ -256,7 +256,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:fontFamily="@font/open_sans"
-                            android:textSize="9sp"
                             app:layout_constraintBottom_toBottomOf="@+id/aqiProgress"
                             app:layout_constraintEnd_toEndOf="@+id/aqiProgress"
                             app:layout_constraintStart_toStartOf="parent"

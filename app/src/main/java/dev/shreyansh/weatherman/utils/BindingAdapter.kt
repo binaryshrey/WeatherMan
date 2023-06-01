@@ -62,7 +62,7 @@ fun setCurrentWeatherErrorLayout(
 @BindingAdapter("errorText")
 fun setWindSpeed(textView: TextView, error: String?) {
     error?.let {
-        textView.text = "Uh Oh! We're unable to load current weather details due : ${error}. \n\nPlease try again!"
+        textView.text = "Uh Oh! We're unable to load current weather details due to : ${error}. \n\nPlease try again!"
     }
 }
 
