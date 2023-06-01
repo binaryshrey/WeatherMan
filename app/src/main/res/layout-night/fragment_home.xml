@@ -14,6 +14,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/black"
         android:id="@+id/homeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,6 +36,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             app:currentWeatherErrorLayout="@{viewModel.currentConditionStatus}"
+            android:background="@color/black"
             android:id="@+id/errorLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -63,7 +65,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/open_sans"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/errorIV"
@@ -76,11 +78,11 @@
                 android:layout_marginStart="48dp"
                 android:layout_marginEnd="48dp"
                 android:layout_marginBottom="16dp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/white"
                 android:fontFamily="@font/open_sans_semibold"
                 android:text="Try again"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 app:cornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -239,7 +241,7 @@
                         android:layout_marginTop="16dp"
                         android:fontFamily="@font/open_sans_semibold"
                         android:text="Hourly Forecasts"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/overviewCV" />
@@ -265,7 +267,7 @@
                         android:layout_marginTop="16dp"
                         android:fontFamily="@font/open_sans_semibold"
                         android:text="Daily Forecasts"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/hourlyForecastRV" />
@@ -316,7 +318,7 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginEnd="8dp"
                                 android:fontFamily="@font/open_sans"
-                                android:textColor="@color/black"
+                                android:textColor="@color/white"
                                 app:alert="@{viewModel.currentWeatherCondition.temperature.metric.value}"
                                 app:layout_constraintBottom_toBottomOf="@+id/imageView"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -347,7 +349,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/open_sans_semibold"
-                        android:textColor="#000000"
+                        android:textColor="@color/white"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="@+id/locationIV"
                         app:layout_constraintStart_toEndOf="@+id/locationIV"

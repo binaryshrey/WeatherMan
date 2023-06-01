@@ -21,7 +21,22 @@
         android:name="dev.shreyansh.weatherman.ui.HomeFragment"
         android:label="HomeFragment" >
         <argument
-            android:name="location"
-            app:argType="string" />
+            android:name="currentLocation"
+            app:argType="dev.shreyansh.weatherman.utils.CurrentLocation" />
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/detailFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="dev.shreyansh.weatherman.ui.DetailFragment"
+        android:label="DetailFragment" >
+        <argument
+            android:name="currentLocation"
+            app:argType="dev.shreyansh.weatherman.utils.CurrentLocation" />
     </fragment>
 </navigation>

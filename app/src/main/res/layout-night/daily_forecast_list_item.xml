@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <variable
+            name="daily"
+            type="dev.shreyansh.weatherman.network.response.ForecastResponse" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="8dp"
+        app:cardBackgroundColor="#A8C2FF"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/daily_forecast_IV"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                app:dailyWeatherIcon="@{daily.day.icon}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cloudy_bg" />
+
+            <TextView
+                android:id="@+id/daily_forecast_temp_type_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/open_sans_semibold"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:dailyWeatherForeCast="@{daily.day.weatherType}"
+                app:layout_constraintStart_toEndOf="@+id/daily_forecast_IV"
+                app:layout_constraintTop_toTopOf="@+id/daily_forecast_IV"
+                tools:text="Hazy Sunshine" />
+
+            <TextView
+                android:id="@+id/daily_forecast_day_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/open_sans"
+                android:textColor="@color/white"
+                app:day="@{daily.date}"
+                app:layout_constraintBottom_toBottomOf="@+id/daily_forecast_IV"
+                app:layout_constraintStart_toEndOf="@+id/daily_forecast_IV"
+                tools:text="Sunday" />
+
+            <TextView
+                android:id="@+id/daily_forecast_temp_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/open_sans_semibold"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:dailyWeatherMax="@{daily.temperature.maximum.value}"
+                app:dailyWeatherMin="@{daily.temperature.minimum.value}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="20/30" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</layout>

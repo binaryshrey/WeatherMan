@@ -7,15 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import dev.shreyansh.weatherman.R
-import dev.shreyansh.weatherman.databinding.FragmentHomeBinding
-import dev.shreyansh.weatherman.network.response.HourlyForecastResponse
-import dev.shreyansh.weatherman.utils.DailyForecastRecyclerAdapter
+import dev.shreyansh.weatherman.databinding.FragmentDetailBinding
 import dev.shreyansh.weatherman.utils.HourlyForecastRecyclerAdapter
 import dev.shreyansh.weatherman.utils.convertTo12HourFormat
 import dev.shreyansh.weatherman.utils.formatMillisToDayDate
@@ -23,57 +20,39 @@ import dev.shreyansh.weatherman.viewModel.WeatherManViewModel
 import dev.shreyansh.weatherman.viewModel.WeatherManViewModelFactory
 
 
-class HomeFragment : Fragment() {
+class DetailFragment : Fragment() {
 
-    private lateinit var binding : FragmentHomeBinding
+    private lateinit var binding : FragmentDetailBinding
     private val weatherManViewModel: WeatherManViewModel by activityViewModels {
         WeatherManViewModelFactory(requireNotNull(this.activity).application)
     }
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_detail, container, false)
 
         val currentLocation = HomeFragmentArgs.fromBundle(requireArguments()).currentLocation
-
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home, container, false)
-        binding.locationTV.text = "${currentLocation.city}, ${currentLocation.countryCode}"
+        binding.locTV.text = "${currentLocation.city}, ${currentLocation.countryCode}"
         binding.dateTV.text = formatMillisToDayDate(System.currentTimeMillis()).toString()
-        binding.timeTV.text = convertTo12HourFormat(System.currentTimeMillis()).toString()
+        binding.lastUpdated.text = "Last Updated : ${convertTo12HourFormat(System.currentTimeMillis()).toString()}"
         binding.lifecycleOwner = viewLifecycleOwner
+
         binding.viewModel = weatherManViewModel
 
-
-        val hourlyForecastRecyclerAdapter: HourlyForecastRecyclerAdapter = HourlyForecastRecyclerAdapter(HourlyForecastRecyclerAdapter.OnClickListener {navigateToHourlyWeb(it.weatherURI)
+        val hourlyForecastRecyclerAdapter: HourlyForecastRecyclerAdapter = HourlyForecastRecyclerAdapter(
+            HourlyForecastRecyclerAdapter.OnClickListener {navigateToHourlyWeb(it.weatherURI)
         },requireActivity())
-
-        val dailyForecastRecyclerAdapter: DailyForecastRecyclerAdapter = DailyForecastRecyclerAdapter(DailyForecastRecyclerAdapter.OnClickListener{navigateToHourlyWeb(it.link)})
 
 
         binding.hourlyForecastRV.adapter = hourlyForecastRecyclerAdapter
-        binding.dailyForecastRV.adapter = dailyForecastRecyclerAdapter
-
         weatherManViewModel.hourlyForecast.observe(viewLifecycleOwner, Observer {
             it?.let { hourlyForecastRecyclerAdapter.submitList(it.toMutableList()) }
         })
 
-        weatherManViewModel.dailyForecast.observe(viewLifecycleOwner, Observer {
-            it?.let { dailyForecastRecyclerAdapter.submitList(it.dailyForecasts.toMutableList()) }
-        })
-
-        binding.overviewCV.setOnClickListener {
-            weatherManViewModel.getDetailedWeather(currentLocation.city)
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(currentLocation))
+        binding.backIV.setOnClickListener {
+            findNavController().popBackStack()
         }
-
-        binding.swiperefresh.setOnRefreshListener {
-            weatherManViewModel.getCurrentWeather(currentLocation.city)
-            binding.swiperefresh.postDelayed(Runnable {binding.swiperefresh.isRefreshing = false} , 2000)
-
-        }
-
-
         return binding.root
     }
 
