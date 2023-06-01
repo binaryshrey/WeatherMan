@@ -13,6 +13,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import dev.shreyansh.weatherman.R
 import dev.shreyansh.weatherman.viewModel.WeatherManCurrentConditionStatus
 import dev.shreyansh.weatherman.viewModel.WeatherManDetailedConditionStatus
+import dev.shreyansh.weatherman.viewModel.WeatherManSearchStatus
 
 
 @BindingAdapter("currentWeatherProgress")
@@ -238,6 +239,18 @@ fun setDetailedWeatherProgress(progressBar: ProgressBar, status: WeatherManDetai
             WeatherManDetailedConditionStatus.LOADING -> progressBar.visibility = View.VISIBLE
             WeatherManDetailedConditionStatus.ERROR -> progressBar.visibility = View.GONE
             WeatherManDetailedConditionStatus.DONE -> progressBar.visibility = View.GONE
+        }
+    }
+}
+
+@BindingAdapter("searchProgress")
+fun setSearchProgress(progressBar: ProgressBar, status: WeatherManSearchStatus?) {
+    progressBar.visibility = View.GONE
+    status?.let {
+        when (status) {
+            WeatherManSearchStatus.LOADING -> progressBar.visibility = View.VISIBLE
+            WeatherManSearchStatus.ERROR -> progressBar.visibility = View.GONE
+            WeatherManSearchStatus.DONE -> progressBar.visibility = View.GONE
         }
     }
 }

@@ -81,6 +81,16 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <ProgressBar
+            android:layout_gravity="center"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:elevation="4dp"
+            android:indeterminateTint="#335FD1"
+            app:searchProgress="@{viewModel.citySearchStatus}" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchRV"
             android:layout_width="match_parent"
