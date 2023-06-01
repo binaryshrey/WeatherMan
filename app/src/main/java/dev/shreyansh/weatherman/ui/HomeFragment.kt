@@ -73,7 +73,7 @@ class HomeFragment : Fragment() {
 
         }
 
-        binding.searchIV.setOnClickListener {
+        binding.searchCV.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
         }
 

@@ -360,3 +360,25 @@ fun setCloudCover(textView: TextView, cloudCover: Int?) {
         textView.text = "$cloudCover%"
     }
 }
+
+
+@BindingAdapter("city")
+fun setCity(textView: TextView, city: String?) {
+    city?.let {
+        textView.text = "$city, "
+    }
+}
+
+@BindingAdapter("state")
+fun setState(textView: TextView, state: String?) {
+    state?.let {
+        textView.text = state
+    }
+}
+
+@BindingAdapter("country")
+fun setCountry(textView: TextView, country: String?) {
+    country?.let {
+        textView.text = country
+    }
+}

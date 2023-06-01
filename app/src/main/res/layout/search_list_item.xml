@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="search"
+            type="dev.shreyansh.weatherman.network.response.CitySearchResponse" />
 
     </data>
 
@@ -22,7 +25,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="8dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toStartOf="@+id/countryTV"
@@ -34,10 +37,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/location" />
 
                     <TextView
                         android:id="@+id/cityTV"
@@ -46,7 +45,7 @@
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/open_sans"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        app:city="@{search.city}"
                         tools:text="Mumbai, " />
 
                     <TextView
@@ -55,7 +54,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/open_sans"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        app:state="@{search.state.state}"
                         tools:text="Maharashtra" />
                 </LinearLayout>
 
@@ -69,7 +68,7 @@
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/open_sans"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                app:country="@{search.country.ID}"
                 app:layout_constraintBottom_toBottomOf="@+id/cityLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/cityLayout"
@@ -80,7 +79,7 @@
                 android:id="@+id/trendingDiv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cityLayout" />
