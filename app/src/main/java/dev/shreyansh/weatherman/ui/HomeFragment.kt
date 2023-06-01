@@ -73,6 +73,14 @@ class HomeFragment : Fragment() {
 
         }
 
+        binding.searchCV.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+        }
+
+        binding.errorButton.setOnClickListener {
+            weatherManViewModel.getCurrentWeather(currentLocation.city)
+        }
+
 
         return binding.root
     }

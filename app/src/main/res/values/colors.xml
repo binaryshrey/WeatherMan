@@ -5,4 +5,8 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="splash_bg">#335FD1</color>
+    <color name="daily_weather_dark_bg">#D2DFFF</color>
+    <color name="daily_weather_light_bg">#A8C2FF</color>
+
 </resources>

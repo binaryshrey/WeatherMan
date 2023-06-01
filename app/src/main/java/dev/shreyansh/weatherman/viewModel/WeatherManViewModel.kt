@@ -5,10 +5,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import dev.shreyansh.weatherman.network.WeatherManAPI
 import dev.shreyansh.weatherman.network.WeatherManDetailAPI
-import dev.shreyansh.weatherman.network.response.CurrentWeatherCondition
-import dev.shreyansh.weatherman.network.response.DailyForecastResponse
-import dev.shreyansh.weatherman.network.response.DetailedWeatherResponse
-import dev.shreyansh.weatherman.network.response.HourlyForecastResponse
+import dev.shreyansh.weatherman.network.response.*
 import dev.shreyansh.weatherman.utils.CurrentLocation
 import dev.shreyansh.weatherman.utils.WeatherManDataStore
 import kotlinx.coroutines.launch
@@ -16,6 +13,7 @@ import kotlinx.coroutines.launch
 
 enum class WeatherManCurrentConditionStatus { LOADING, ERROR, DONE }
 enum class WeatherManDetailedConditionStatus { LOADING, ERROR, DONE }
+enum class WeatherManSearchStatus { LOADING, ERROR, DONE }
 
 
 
@@ -60,6 +58,15 @@ class WeatherManViewModel(application: Application) : AndroidViewModel(applicati
     private val _currentConditionError = MutableLiveData<String>()
     val currentConditionError : MutableLiveData<String>
         get() = _currentConditionError
+
+
+    private val _citySearchResults = MutableLiveData<List<CitySearchResponse>>()
+    val citySearchResults : MutableLiveData<List<CitySearchResponse>>
+        get() = _citySearchResults
+
+    private val _citySearchStatus = MutableLiveData<WeatherManSearchStatus>()
+    val citySearchStatus : MutableLiveData<WeatherManSearchStatus>
+        get() = _citySearchStatus
 
 
     init {
@@ -126,6 +133,25 @@ class WeatherManViewModel(application: Application) : AndroidViewModel(applicati
             }
             catch (e: Exception){
                 _detailedConditionStatus.value = WeatherManDetailedConditionStatus.ERROR
+                Log.i("Exception","$e")
+            }
+        }
+
+    }
+
+
+    fun getSearchedCity(city: String) {
+        viewModelScope.launch {
+            _citySearchStatus.value = WeatherManSearchStatus.LOADING
+            try{
+                val cities = WeatherManAPI.weatherManService.getCities(city)
+                _citySearchResults.value = cities
+                _citySearchStatus.value = WeatherManSearchStatus.DONE
+                Log.i("cities","$cities")
+
+            }
+            catch (e: Exception){
+                _citySearchStatus.value = WeatherManSearchStatus.ERROR
                 Log.i("Exception","$e")
             }
         }

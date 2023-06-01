@@ -13,6 +13,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import dev.shreyansh.weatherman.R
 import dev.shreyansh.weatherman.viewModel.WeatherManCurrentConditionStatus
 import dev.shreyansh.weatherman.viewModel.WeatherManDetailedConditionStatus
+import dev.shreyansh.weatherman.viewModel.WeatherManSearchStatus
 
 
 @BindingAdapter("currentWeatherProgress")
@@ -61,7 +62,7 @@ fun setCurrentWeatherErrorLayout(
 @BindingAdapter("errorText")
 fun setWindSpeed(textView: TextView, error: String?) {
     error?.let {
-        textView.text = "Uh Oh! We're unable to load current weather details due : ${error}. \n\nPlease try again!"
+        textView.text = "Uh Oh! We're unable to load current weather details due to : ${error}. \n\nPlease try again!"
     }
 }
 
@@ -242,6 +243,18 @@ fun setDetailedWeatherProgress(progressBar: ProgressBar, status: WeatherManDetai
     }
 }
 
+@BindingAdapter("searchProgress")
+fun setSearchProgress(progressBar: ProgressBar, status: WeatherManSearchStatus?) {
+    progressBar.visibility = View.GONE
+    status?.let {
+        when (status) {
+            WeatherManSearchStatus.LOADING -> progressBar.visibility = View.VISIBLE
+            WeatherManSearchStatus.ERROR -> progressBar.visibility = View.GONE
+            WeatherManSearchStatus.DONE -> progressBar.visibility = View.GONE
+        }
+    }
+}
+
 @BindingAdapter("detailedWeatherLayout")
 fun setDetailedWeatherProgress(linearLayout: LinearLayout, status: WeatherManDetailedConditionStatus?) {
     linearLayout.visibility = View.GONE
@@ -358,5 +371,27 @@ fun setWindSpeed(textView: TextView, windSpeed: Float?) {
 fun setCloudCover(textView: TextView, cloudCover: Int?) {
     cloudCover?.let {
         textView.text = "$cloudCover%"
+    }
+}
+
+
+@BindingAdapter("city")
+fun setCity(textView: TextView, city: String?) {
+    city?.let {
+        textView.text = "$city, "
+    }
+}
+
+@BindingAdapter("state")
+fun setState(textView: TextView, state: String?) {
+    state?.let {
+        textView.text = state
+    }
+}
+
+@BindingAdapter("country")
+fun setCountry(textView: TextView, country: String?) {
+    country?.let {
+        textView.text = country
     }
 }

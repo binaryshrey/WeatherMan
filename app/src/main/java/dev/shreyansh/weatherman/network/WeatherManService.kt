@@ -4,10 +4,7 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dev.shreyansh.weatherman.BuildConfig
-import dev.shreyansh.weatherman.network.response.CurrentWeatherCondition
-import dev.shreyansh.weatherman.network.response.DailyForecastResponse
-import dev.shreyansh.weatherman.network.response.HourlyForecastResponse
-import dev.shreyansh.weatherman.network.response.LocationKeyResponse
+import dev.shreyansh.weatherman.network.response.*
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
@@ -52,6 +49,12 @@ interface WeatherManService {
         @Path("cityId") cityId: String,
         @Query("apikey") apikey: String = API_KEY
     ) : DailyForecastResponse
+
+    @GET("/locations/v1/cities/autocomplete")
+    suspend fun getCities(
+        @Query("q") q: String,
+        @Query("apikey") apikey: String = API_KEY
+    ) : List<CitySearchResponse>
 }
 
 object WeatherManAPI {
