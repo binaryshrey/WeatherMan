@@ -13,11 +13,11 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginBottom="8dp"
-        app:cardBackgroundColor="#D2DFFF"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="0dp">
+        android:layout_height="@dimen/dimen_80"
+        android:layout_marginBottom="@dimen/dimen_8"
+        app:cardBackgroundColor="@color/daily_weather_dark_bg"
+        app:cardCornerRadius="@dimen/dimen_16"
+        app:cardElevation="@dimen/dimen_0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,9 +26,9 @@
 
             <ImageView
                 android:id="@+id/daily_forecast_IV"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="@dimen/dimen_48"
+                android:layout_height="@dimen/dimen_48"
+                android:layout_marginStart="@dimen/dimen_16"
                 app:dailyWeatherIcon="@{daily.day.icon}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,10 +39,10 @@
                 android:id="@+id/daily_forecast_temp_type_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="@dimen/dimen_16"
                 android:fontFamily="@font/open_sans_semibold"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_18"
                 app:dailyWeatherForeCast="@{daily.day.weatherType}"
                 app:layout_constraintStart_toEndOf="@+id/daily_forecast_IV"
                 app:layout_constraintTop_toTopOf="@+id/daily_forecast_IV"
@@ -52,8 +52,8 @@
                 android:id="@+id/daily_forecast_day_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginStart="@dimen/dimen_16"
+                android:layout_marginBottom="@dimen/dimen_4"
                 android:fontFamily="@font/open_sans"
                 android:textColor="@color/black"
                 app:day="@{daily.date}"
@@ -65,10 +65,10 @@
                 android:id="@+id/daily_forecast_temp_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="@dimen/dimen_24"
                 android:fontFamily="@font/open_sans_semibold"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_16"
                 app:dailyWeatherMax="@{daily.temperature.maximum.value}"
                 app:dailyWeatherMin="@{daily.temperature.minimum.value}"
                 app:layout_constraintBottom_toBottomOf="parent"
