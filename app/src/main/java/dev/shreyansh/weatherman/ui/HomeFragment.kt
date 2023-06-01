@@ -63,6 +63,7 @@ class HomeFragment : Fragment() {
         })
 
         binding.overviewCV.setOnClickListener {
+            weatherManViewModel.getDetailedWeather(currentLocation.city)
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(currentLocation))
         }
 

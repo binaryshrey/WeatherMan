@@ -3,10 +3,11 @@ package dev.shreyansh.weatherman.viewModel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import dev.shreyansh.weatherman.domain.CurrentWeather
 import dev.shreyansh.weatherman.network.WeatherManAPI
+import dev.shreyansh.weatherman.network.WeatherManDetailAPI
 import dev.shreyansh.weatherman.network.response.CurrentWeatherCondition
 import dev.shreyansh.weatherman.network.response.DailyForecastResponse
+import dev.shreyansh.weatherman.network.response.DetailedWeatherResponse
 import dev.shreyansh.weatherman.network.response.HourlyForecastResponse
 import dev.shreyansh.weatherman.utils.CurrentLocation
 import dev.shreyansh.weatherman.utils.WeatherManDataStore
@@ -14,6 +15,8 @@ import kotlinx.coroutines.launch
 
 
 enum class WeatherManCurrentConditionStatus { LOADING, ERROR, DONE }
+enum class WeatherManDetailedConditionStatus { LOADING, ERROR, DONE }
+
 
 
 class WeatherManViewModel(application: Application) : AndroidViewModel(application) {
@@ -45,6 +48,15 @@ class WeatherManViewModel(application: Application) : AndroidViewModel(applicati
     private val _currentConditionStatus = MutableLiveData<WeatherManCurrentConditionStatus>()
     val currentConditionStatus : MutableLiveData<WeatherManCurrentConditionStatus>
         get() = _currentConditionStatus
+
+    private val _detailedConditionStatus = MutableLiveData<WeatherManDetailedConditionStatus>()
+    val detailedConditionStatus : MutableLiveData<WeatherManDetailedConditionStatus>
+        get() = _detailedConditionStatus
+
+    private val _detailedWeather = MutableLiveData<DetailedWeatherResponse>()
+    val detailedWeather : MutableLiveData<DetailedWeatherResponse>
+        get() = _detailedWeather
+
 
     init {
     }
@@ -86,7 +98,6 @@ class WeatherManViewModel(application: Application) : AndroidViewModel(applicati
                     _hourlyForecast.value = hourlyForecast
                     val dailyForecast = WeatherManAPI.weatherManService.getDailyForecastByCityCode(cityCode[0].locationKey)
                     _dailyForecast.value = dailyForecast
-                    Log.i("dailyForecast","${dailyForecast}")
                 }
                 _currentConditionStatus.value = WeatherManCurrentConditionStatus.DONE
             }
@@ -95,5 +106,22 @@ class WeatherManViewModel(application: Application) : AndroidViewModel(applicati
                 Log.i("Exception","$e")
             }
         }
+    }
+
+    fun getDetailedWeather(city: String) {
+        viewModelScope.launch {
+            _detailedConditionStatus.value = WeatherManDetailedConditionStatus.LOADING
+            try{
+                val detailedWeather = WeatherManDetailAPI.weatherManDetailService.getDetailedWeather(city)
+                _detailedWeather.value = detailedWeather
+                _detailedConditionStatus.value = WeatherManDetailedConditionStatus.DONE
+
+            }
+            catch (e: Exception){
+                _detailedConditionStatus.value = WeatherManDetailedConditionStatus.ERROR
+                Log.i("Exception","$e")
+            }
+        }
+
     }
 }

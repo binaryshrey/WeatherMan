@@ -1,13 +1,18 @@
 package dev.shreyansh.weatherman.utils
 
+import android.graphics.Color
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import dev.shreyansh.weatherman.R
 import dev.shreyansh.weatherman.viewModel.WeatherManCurrentConditionStatus
+import dev.shreyansh.weatherman.viewModel.WeatherManDetailedConditionStatus
 
 
 @BindingAdapter("currentWeatherProgress")
@@ -199,5 +204,137 @@ fun setDay(textView: TextView, dailyWeatherMax: Int?, dailyWeatherMin: Int?) {
         dailyWeatherMin?.let {
             textView.text = "${((dailyWeatherMax-32)*5/9)} / ${((dailyWeatherMin-32)*5/9)} °C"
         }
+    }
+}
+
+
+@BindingAdapter("detailedWeatherProgress")
+fun setDetailedWeatherProgress(progressBar: ProgressBar, status: WeatherManDetailedConditionStatus?) {
+    progressBar.visibility = View.VISIBLE
+    status?.let {
+        when (status) {
+            WeatherManDetailedConditionStatus.LOADING -> progressBar.visibility = View.VISIBLE
+            WeatherManDetailedConditionStatus.ERROR -> progressBar.visibility = View.GONE
+            WeatherManDetailedConditionStatus.DONE -> progressBar.visibility = View.GONE
+        }
+    }
+}
+
+@BindingAdapter("detailedWeatherLayout")
+fun setDetailedWeatherProgress(linearLayout: LinearLayout, status: WeatherManDetailedConditionStatus?) {
+    linearLayout.visibility = View.GONE
+    status?.let {
+        when (status) {
+            WeatherManDetailedConditionStatus.LOADING -> linearLayout.visibility = View.GONE
+            WeatherManDetailedConditionStatus.ERROR -> linearLayout.visibility = View.VISIBLE
+            WeatherManDetailedConditionStatus.DONE -> linearLayout.visibility = View.VISIBLE
+        }
+    }
+}
+
+@BindingAdapter("aqiPercentage")
+fun setAQIPercentage(circularProgressIndicator: CircularProgressIndicator, aqi: Float?) {
+    aqi?.let {
+        circularProgressIndicator.progress = ((aqi/500) * 100).toInt()
+    }
+}
+
+@BindingAdapter("indicatorColor")
+fun setIndicatorColor(circularProgressIndicator: CircularProgressIndicator, aqi: Float?) {
+    aqi?.let {
+        val aqiPercentage = ((aqi/500) * 100).toInt()
+        when(aqiPercentage){
+            in 0..150 -> {
+                circularProgressIndicator.setIndicatorColor(Color.parseColor("#8fce00"))
+                circularProgressIndicator.trackColor = (Color.parseColor("#d9ead3"))
+
+            }
+            in 151..200 -> {
+                circularProgressIndicator.setIndicatorColor(Color.parseColor("#e69138"))
+                circularProgressIndicator.trackColor = (Color.parseColor("#fce5cd"))
+
+            }
+            in 201..500 -> {
+                circularProgressIndicator.setIndicatorColor(Color.parseColor("#f44336"))
+                circularProgressIndicator.trackColor = (Color.parseColor("#f4cccc"))
+
+            }
+            else -> {
+                circularProgressIndicator.setIndicatorColor(Color.parseColor("#f44336"))
+                circularProgressIndicator.trackColor = (Color.parseColor("#f4cccc"))
+            }
+        }
+    }
+}
+
+
+@BindingAdapter("progressColor")
+fun setProgressColor(textView: TextView, aqi: Float?) {
+    aqi?.let {
+        textView.text = "${aqi.toInt()}"
+        when(aqi.toInt()){
+            in 0..150 -> textView.setTextColor(Color.parseColor("#8fce00"))
+            in 151..200 -> textView.setTextColor(Color.parseColor("#e69138"))
+            in 201..500 -> textView.setTextColor(Color.parseColor("#f44336"))
+            else -> textView.setTextColor(Color.parseColor("#f44336"))
+        }
+    }
+}
+
+@BindingAdapter("aqiOverview")
+fun setAQIOverview(textView: TextView, aqi: Float?) {
+    aqi?.let {
+        when (aqi.toInt()) {
+            in 0..50 -> textView.text = "AQI - Very Good"
+            in 51..100 -> textView.text = "AQI - Good"
+            in 101..150 -> textView.text = "AQI - Moderate"
+            in 151..200 -> textView.text = "AQI - Unhealthy"
+            in 201..300 -> textView.text = "AQI - Very Unhealthy"
+            in 301..500 -> textView.text = "AQI - Hazardous"
+            else -> textView.text = "AQI - Hazardous"
+        }
+    }
+}
+
+@BindingAdapter("aqiDetailed")
+fun setAQIDetailed(textView: TextView, aqi: Float?) {
+    aqi?.let {
+        when (aqi.toInt()) {
+            in 0..50 -> textView.text = "Air quality is excellent, posing little or no health risk."
+            in 51..100 -> textView.text = "Air quality is acceptable, but sensitive individuals may experience minor respiratory issues."
+            in 101..150 -> textView.text = "People with respiratory or heart conditions should limit outdoor activities."
+            in 151..200 -> textView.text = "Everyone may experience adverse health effects, and prolonged exposure is harmful."
+            in 201..300 -> textView.text = "Health warnings are issued, and everyone is at risk of significant health problems."
+            in 301..500 -> textView.text = "Emergency conditions with severe health effects; everyone should avoid outdoor activities."
+            else -> textView.text = "Emergency conditions with severe health effects; everyone should avoid outdoor activities."
+        }
+    }
+}
+
+@BindingAdapter("humidity")
+fun setHumidity(textView: TextView, humidity: Int?) {
+    humidity?.let {
+        textView.text = "$humidity%"
+    }
+}
+
+@BindingAdapter("pressure")
+fun setPressure(textView: TextView, pressure: Float?) {
+    pressure?.let {
+        textView.text = "${pressure.toInt()} hPa"
+    }
+}
+
+@BindingAdapter("windSpeed")
+fun setWindSpeed(textView: TextView, windSpeed: Float?) {
+    windSpeed?.let {
+        textView.text = "$windSpeed km/hr"
+    }
+}
+
+@BindingAdapter("cloudCover")
+fun setCloudCover(textView: TextView, cloudCover: Int?) {
+    cloudCover?.let {
+        textView.text = "$cloudCover%"
     }
 }
