@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import dev.shreyansh.weatherman.R
 import dev.shreyansh.weatherman.databinding.FragmentDetailBinding
 import dev.shreyansh.weatherman.utils.HourlyForecastRecyclerAdapter
@@ -48,6 +49,10 @@ class DetailFragment : Fragment() {
         weatherManViewModel.hourlyForecast.observe(viewLifecycleOwner, Observer {
             it?.let { hourlyForecastRecyclerAdapter.submitList(it.toMutableList()) }
         })
+
+        binding.backIV.setOnClickListener {
+            findNavController().popBackStack()
+        }
         return binding.root
     }
 

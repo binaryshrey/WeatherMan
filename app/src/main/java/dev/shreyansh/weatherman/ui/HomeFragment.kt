@@ -67,6 +67,12 @@ class HomeFragment : Fragment() {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(currentLocation))
         }
 
+        binding.swiperefresh.setOnRefreshListener {
+            weatherManViewModel.getCurrentWeather(currentLocation.city)
+            binding.swiperefresh.postDelayed(Runnable {binding.swiperefresh.isRefreshing = false} , 2000)
+
+        }
+
 
         return binding.root
     }
