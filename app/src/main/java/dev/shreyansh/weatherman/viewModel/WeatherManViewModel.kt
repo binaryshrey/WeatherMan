@@ -57,8 +57,13 @@ class WeatherManViewModel(application: Application) : AndroidViewModel(applicati
     val detailedWeather : MutableLiveData<DetailedWeatherResponse>
         get() = _detailedWeather
 
+    private val _currentConditionError = MutableLiveData<String>()
+    val currentConditionError : MutableLiveData<String>
+        get() = _currentConditionError
+
 
     init {
+        _currentConditionError.value = ""
     }
 
     fun updateCurrentLocation(location: CurrentLocation){
@@ -98,11 +103,13 @@ class WeatherManViewModel(application: Application) : AndroidViewModel(applicati
                     _hourlyForecast.value = hourlyForecast
                     val dailyForecast = WeatherManAPI.weatherManService.getDailyForecastByCityCode(cityCode[0].locationKey)
                     _dailyForecast.value = dailyForecast
+                    _currentConditionError.value = ""
                 }
                 _currentConditionStatus.value = WeatherManCurrentConditionStatus.DONE
             }
             catch (e: Exception){
                 _currentConditionStatus.value = WeatherManCurrentConditionStatus.ERROR
+                _currentConditionError.value = "$e"
                 Log.i("Exception","$e")
             }
         }

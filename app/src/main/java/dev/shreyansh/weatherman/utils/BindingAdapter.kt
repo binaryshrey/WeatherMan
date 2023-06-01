@@ -37,9 +37,31 @@ fun setCurrentWeatherProgressLayout(
     status?.let {
         when (status) {
             WeatherManCurrentConditionStatus.LOADING -> constraintLayout.visibility = View.GONE
-            WeatherManCurrentConditionStatus.ERROR -> constraintLayout.visibility = View.VISIBLE
+            WeatherManCurrentConditionStatus.ERROR -> constraintLayout.visibility = View.GONE
             WeatherManCurrentConditionStatus.DONE -> constraintLayout.visibility = View.VISIBLE
         }
+    }
+}
+
+@BindingAdapter("currentWeatherErrorLayout")
+fun setCurrentWeatherErrorLayout(
+    constraintLayout: ConstraintLayout,
+    status: WeatherManCurrentConditionStatus?
+) {
+    constraintLayout.visibility = View.GONE
+    status?.let {
+        when (status) {
+            WeatherManCurrentConditionStatus.LOADING -> constraintLayout.visibility = View.GONE
+            WeatherManCurrentConditionStatus.ERROR -> constraintLayout.visibility = View.VISIBLE
+            WeatherManCurrentConditionStatus.DONE -> constraintLayout.visibility = View.GONE
+        }
+    }
+}
+
+@BindingAdapter("errorText")
+fun setWindSpeed(textView: TextView, error: String?) {
+    error?.let {
+        textView.text = "Uh Oh! We're unable to load current weather details due : ${error}. \n\nPlease try again!"
     }
 }
 
