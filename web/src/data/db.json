@@ -1,0 +1,6 @@
+{
+    "appName" : "WeatherMan",
+    "description" : "Stay ahead of the storm with our minimalist weather tracker app and get notified for weather-alerts!",
+    "download": "https://github.com/binaryshrey/WeatherMan/releases/download/v1.0.0/app-release.apk",
+    "github": "https://github.com/binaryshrey/WeatherMan"
+}
