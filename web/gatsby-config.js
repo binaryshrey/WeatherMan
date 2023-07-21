@@ -25,7 +25,7 @@ module.exports = {
     }
   ],
   siteMetadata: {
-    title: "Pokedex",
+    title: "WeatherMan",
     description: "WeatherMan • Stay ahead of the storm",
     image: `/logo.webp`,
     siteUrl: `https://weatherman-zenstudio.netlify.app/`,
