@@ -73,7 +73,7 @@ class IntroFragment : Fragment() {
     private fun checkLocationSettings() {
         val locationRequest = LocationRequest.create()
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-            .setInterval(10000) // Update interval in milliseconds
+            .setInterval(1000) // Update interval in milliseconds
 
         val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
         val settingsTask: Task<LocationSettingsResponse> = settingsClient.checkLocationSettings(builder.build())
