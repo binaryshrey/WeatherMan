@@ -17,7 +17,7 @@ const MobileLayout = () => {
   	}
 
 	return (
-		<div style={{ backgroundImage: 'url(https://cdn.jsdelivr.net/gh/binaryshrey/Pokedex@main/static/web_bg_mobile.webp)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width:'100vw',height:'100vh', overflow:'hidden'}}>
+		<div style={{ backgroundImage: 'url(https://cdn.jsdelivr.net/gh/binaryshrey/Pokedex@main/static/mobile_web_background.webp)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width:'100vw',height:'100vh', overflow:'hidden'}}>
 			<div style={{height: '100vh', display: 'flex', flexDirection:'column'}}>
 				<div style={{ flex: 1}}>
 					<div style={{marginTop:'4rem', display: 'flex', justifyContent:'center'}}>
