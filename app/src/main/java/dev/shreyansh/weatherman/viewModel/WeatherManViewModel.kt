@@ -24,6 +24,8 @@ class WeatherManViewModel(application: Application) : AndroidViewModel(applicati
     var currentCity = dataStore.getCityPrefs().asLiveData()
     var currentCountryCode = dataStore.getCountryCode().asLiveData()
     var isOnBoardComplete = dataStore.getOnboardPrefs().asLiveData()
+    var userLocation = dataStore.getUserLocation().asLiveData()
+
 
     private val _currentLocation = MutableLiveData<CurrentLocation>()
     val currentLocation : MutableLiveData<CurrentLocation>
@@ -73,11 +75,17 @@ class WeatherManViewModel(application: Application) : AndroidViewModel(applicati
         _currentConditionError.value = ""
     }
 
+    fun updateUserLocation(city : String, countryCode : String){
+        viewModelScope.launch {
+            dataStore.setUserLocation("${city},${countryCode}")
+        }
+    }
+
     fun updateCurrentLocation(location: CurrentLocation){
         _currentLocation.value = location
         updateCurrentCity(location.city)
         updateCurrentCountryCode(location.countryCode)
-        getCurrentWeather(location.city)
+        updateUserLocation(location.city, location.countryCode)
     }
 
     private fun updateCurrentCity(city : String){

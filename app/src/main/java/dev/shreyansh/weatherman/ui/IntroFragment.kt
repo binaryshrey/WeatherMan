@@ -7,7 +7,6 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -61,7 +60,16 @@ class IntroFragment : Fragment() {
 
 
         binding.getStartedButton.setOnClickListener {
-            checkLocationSettings()
+            weatherManViewModel.userLocation.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                if(it != ""){
+                    val city = it.split(",")[0]
+                    val countryCode = it.split(",")[1]
+                    weatherManViewModel.getCurrentWeather(city)
+                    findNavController().navigate(IntroFragmentDirections.actionIntroFragmentToHomeFragment(CurrentLocation(city,countryCode)))
+                }else{
+                    checkLocationSettings()
+                }
+            })
         }
 
         return binding.root
@@ -110,9 +118,9 @@ class IntroFragment : Fragment() {
                 if (task.isSuccessful && task.result != null) {
                     val location: Location = task.result
                     val currentLocation = getCurrentCity(location.latitude, location.longitude)
-                    weatherManViewModel.updateOnBoardingPrefs(true)
                     weatherManViewModel.updateCurrentLocation(currentLocation)
-                    //findNavController().navigate(IntroFragmentDirections.actionIntroFragmentToHomeFragment(currentLocation))
+                    weatherManViewModel.getCurrentWeather(currentLocation.city)
+                    findNavController().navigate(IntroFragmentDirections.actionIntroFragmentToHomeFragment(currentLocation))
                 }
             }
                 .addOnFailureListener { task ->
@@ -147,13 +155,6 @@ class IntroFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        weatherManViewModel.isOnBoardComplete.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            if(it){
-                weatherManViewModel.currentLocation.observe(viewLifecycleOwner, androidx.lifecycle.Observer { loc ->
-                    findNavController().navigate(IntroFragmentDirections.actionIntroFragmentToHomeFragment(loc))
-                })
-            }
-        })
         playVideo()
     }
 

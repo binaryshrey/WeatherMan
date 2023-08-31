@@ -14,6 +14,7 @@ object PREFS {
     val ONBOARD_KEY = booleanPreferencesKey("ONBOARD_KEY")
     val CITY_KEY = stringPreferencesKey("CITY_KEY")
     val COUNTRY_CODE_KEY = stringPreferencesKey("COUNTRY_CODE_KEY")
+    val USER_LOCATION = stringPreferencesKey("USER_LOCATION")
 
 
 }
@@ -100,6 +101,27 @@ class WeatherManDataStore private constructor(context: Context) {
         }
         .map { pref ->
             val code = pref[PREFS.COUNTRY_CODE_KEY] ?: "IN"
+            code
+        }
+
+
+    //userLocation prefs
+    suspend fun setUserLocation(code: String) {
+        dataStore.edit { pref ->
+            pref[PREFS.USER_LOCATION] = code
+        }
+    }
+
+    fun getUserLocation(): Flow<String> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }
+        .map { pref ->
+            val code = pref[PREFS.USER_LOCATION] ?: ""
             code
         }
 
