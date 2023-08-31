@@ -17,13 +17,13 @@ import dev.shreyansh.weatherman.viewModel.WeatherManSearchStatus
 
 
 @BindingAdapter("currentWeatherProgress")
-fun setCurrentWeatherProgress(progressBar: ProgressBar, status: WeatherManCurrentConditionStatus?) {
-    progressBar.visibility = View.VISIBLE
+fun setCurrentWeatherProgress(linearLayout: LinearLayout, status: WeatherManCurrentConditionStatus?) {
+    linearLayout.visibility = View.VISIBLE
     status?.let {
         when (status) {
-            WeatherManCurrentConditionStatus.LOADING -> progressBar.visibility = View.VISIBLE
-            WeatherManCurrentConditionStatus.ERROR -> progressBar.visibility = View.GONE
-            WeatherManCurrentConditionStatus.DONE -> progressBar.visibility = View.GONE
+            WeatherManCurrentConditionStatus.LOADING -> linearLayout.visibility = View.VISIBLE
+            WeatherManCurrentConditionStatus.ERROR -> linearLayout.visibility = View.GONE
+            WeatherManCurrentConditionStatus.DONE -> linearLayout.visibility = View.GONE
         }
     }
 }
@@ -232,13 +232,13 @@ fun setDay(textView: TextView, dailyWeatherMax: Int?, dailyWeatherMin: Int?) {
 
 
 @BindingAdapter("detailedWeatherProgress")
-fun setDetailedWeatherProgress(progressBar: ProgressBar, status: WeatherManDetailedConditionStatus?) {
-    progressBar.visibility = View.VISIBLE
+fun setDetailedWeatherProgressLayout(linearLayout: LinearLayout, status: WeatherManDetailedConditionStatus?) {
+    linearLayout.visibility = View.VISIBLE
     status?.let {
         when (status) {
-            WeatherManDetailedConditionStatus.LOADING -> progressBar.visibility = View.VISIBLE
-            WeatherManDetailedConditionStatus.ERROR -> progressBar.visibility = View.GONE
-            WeatherManDetailedConditionStatus.DONE -> progressBar.visibility = View.GONE
+            WeatherManDetailedConditionStatus.LOADING -> linearLayout.visibility = View.VISIBLE
+            WeatherManDetailedConditionStatus.ERROR -> linearLayout.visibility = View.GONE
+            WeatherManDetailedConditionStatus.DONE -> linearLayout.visibility = View.GONE
         }
     }
 }

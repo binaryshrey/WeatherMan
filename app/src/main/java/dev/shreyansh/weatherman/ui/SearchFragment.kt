@@ -71,6 +71,7 @@ class SearchFragment : Fragment() {
     private fun loadWeatherForSelectedCity(citySearchResponse: CitySearchResponse) {
         val location : CurrentLocation = CurrentLocation(citySearchResponse.city,citySearchResponse.country.ID)
         weatherManViewModel.updateCurrentLocation(location)
+        weatherManViewModel.getCurrentWeather(location.city)
         findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToHomeFragment(location))
 
     }
